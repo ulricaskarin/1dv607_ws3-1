@@ -46,6 +46,24 @@ namespace BlackJack.model
             return false;
         }
 
+        public bool Stand(Player a_player)
+        {
+            if (m_deck != null)
+            {
+                a_player.ShowHand();
+
+                while (m_hitRule.DoHit(this))
+                {
+                    Card c;
+                    c = m_deck.GetCard();
+                    c.Show(true);
+                    a_player.DealCard(c);
+                }
+                return true;
+            }
+            return false;
+        }
+
         public bool IsDealerWinner(Player a_player)
         {
             if (a_player.CalcScore() > g_maxScore)
