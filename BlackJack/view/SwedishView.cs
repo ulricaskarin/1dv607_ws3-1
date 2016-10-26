@@ -12,12 +12,36 @@ namespace BlackJack.view
             System.Console.Clear();
             System.Console.WriteLine("Hej Black Jack Världen");
             System.Console.WriteLine("----------------------");
-            System.Console.WriteLine("Skriv 'p' för att Spela, 'h' för nytt kort, 's' för att stanna 'q' för att avsluta\n");
+            System.Console.WriteLine("Skriv 'n' för att starta ett nytt Spel, 'k' för nytt kort, 's' för att stanna 'a' för att avsluta\n");
         }
-        public int GetInput()
+        private char GetInput()
         {
-            return System.Console.In.Read();
+            return System.Console.ReadKey().KeyChar;
         }
+
+        public GameAction GetAction()
+        {
+            char input = GetInput();
+
+            switch (input)
+            {
+                case 'n':
+                    return GameAction.Play;
+
+                case 'k':
+                    return GameAction.Hit;
+
+                case 's':
+                    return GameAction.Stand;
+
+                case 'a':
+                    return GameAction.Quit;
+
+                default:
+                    return GameAction.Invalid;
+            }
+        }
+
         public void DisplayCard(model.Card a_card)
         {
             if (a_card.GetColor() == model.Card.Color.Hidden)
