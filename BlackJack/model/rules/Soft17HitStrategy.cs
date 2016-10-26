@@ -23,10 +23,10 @@ namespace BlackJack.model.rules
 
         private bool HasAceCountedAsOne(int score)
         {
-            return _dealer.CalcScore() != CalcLowScore();
+            return _dealer.CalcScore() != CalcHighScore();
         }
 
-        private int CalcLowScore()
+        private int CalcHighScore()
         {
             int[] cardScores = new int[(int)model.Card.Value.Count]
 {2, 3, 4, 5, 6, 7, 8, 9, 10, 10 ,10 ,10, 11};
