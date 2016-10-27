@@ -13,6 +13,11 @@ namespace BlackJack.model
         public void DealCard(Card a_card)
         {
             m_hand.Add(a_card);
+            CallObservers();
+        }
+
+       public void CallObservers()
+       {
             foreach (ICardRecievedObserver o in m_observers)
             {
                 o.CardRecieved();
