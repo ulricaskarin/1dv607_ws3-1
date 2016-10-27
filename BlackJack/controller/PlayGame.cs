@@ -2,37 +2,49 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using BlackJack.model;
+using BlackJack.view;
 
 namespace BlackJack.controller
 {
-    class PlayGame
+    class PlayGame : ICardRecievedObserver
     {
-        public bool Play(model.Game a_game, view.IView a_view)
-        {
-            a_view.DisplayWelcomeMessage();
-            
-            a_view.DisplayDealerHand(a_game.GetDealerHand(), a_game.GetDealerScore());
-            a_view.DisplayPlayerHand(a_game.GetPlayerHand(), a_game.GetPlayerScore());
+        private model.Game m_game;
+        private IView m_view;
 
-            if (a_game.IsGameOver())
+        public PlayGame(model.Game g, IView v)
+        {
+            m_game = g;
+            m_view = v;
+            m_game.AddSubscriber(this);
+        }
+
+        public bool Play()
+        {
+            m_view.DisplayWelcomeMessage();
+            
+            m_view.DisplayDealerHand(m_game.GetDealerHand(), m_game.GetDealerScore());
+            m_view.DisplayPlayerHand(m_game.GetPlayerHand(), m_game.GetPlayerScore());
+
+            if (m_game.IsGameOver())
             {
-                a_view.DisplayGameOver(a_game.IsDealerWinner());
+                m_view.DisplayGameOver(m_game.IsDealerWinner());
             }
   
-            view.GameAction gameAction = a_view.GetAction();
+            view.GameAction gameAction = m_view.GetAction();
 
             switch (gameAction) 
             {
                 case view.GameAction.Play:
-                    a_game.NewGame();
+                    m_game.NewGame();
                     return true;
 
                 case view.GameAction.Hit:
-                    a_game.Hit();
+                    m_game.Hit();
                     return true;
 
                 case view.GameAction.Stand:
-                    a_game.Stand();
+                    m_game.Stand();
                     return true;
 
                 case view.GameAction.Quit:
@@ -44,6 +56,11 @@ namespace BlackJack.controller
                 default:
                     throw new Exception("GameAction can not be handled.");
             }
+        }
+
+        public void CardRecieved()
+        {
+            m_view.Pause();
         }
     }
 }

@@ -42,6 +42,11 @@ namespace BlackJack.view
             }
         }
 
+        public void Pause()
+        {
+            System.Threading.Thread.Sleep(1000);
+        }
+
         public void DisplayCard(model.Card a_card)
         {
             if (a_card.GetColor() == model.Card.Color.Hidden)
