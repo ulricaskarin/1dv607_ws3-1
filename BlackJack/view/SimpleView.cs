@@ -46,6 +46,8 @@ namespace BlackJack.view
         public void Pause()
         {
             System.Threading.Thread.Sleep(1000);
+            System.Console.Clear();
+            DisplayWelcomeMessage();
         }
 
         public void DisplayCard(model.Card a_card)
