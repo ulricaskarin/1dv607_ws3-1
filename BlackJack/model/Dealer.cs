@@ -38,10 +38,7 @@ namespace BlackJack.model
         {
             if (m_deck != null && a_player.CalcScore() < g_maxScore && !IsGameOver())
             {
-                Card c;
-                c = m_deck.GetCard();
-                c.Show(true);
-                a_player.DealCard(c);
+                GetShowDealCard(true, a_player);
 
                 return true;
             }
@@ -70,15 +67,20 @@ namespace BlackJack.model
 
                 while(m_hitRule.DoHit(this))
                 {
-                    Card c = m_deck.GetCard();
-                    c.Show(true);
-                    DealCard(c);
+                    GetShowDealCard(true, this);
                 }
 
                 return true;
             }
 
             return false;
+        }
+
+        public void GetShowDealCard(bool show, Player a_player)
+        {
+            Card c = m_deck.GetCard();
+            c.Show(show);
+            a_player.DealCard(c);
         }
     }
 }
