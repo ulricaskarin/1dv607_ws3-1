@@ -19,3 +19,8 @@
 - [Class diagram][ucd]
 
 [ucd]: https://raw.githubusercontent.com/ulricaskarin/1dv607-Portfolio/master/Workshop-3/Updated_class_diagram.png
+
+## Final Diagrams
+- [Final class diagram][fcd]
+
+[fcd]: https://raw.githubusercontent.com/ulricaskarin/1dv607-Portfolio/master/Workshop-3/Final_class_diagram.png
